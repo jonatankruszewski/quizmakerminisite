@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import SearchQuiz from './components/SearchQuiz.jsx';
+import SearchQuiz from './components/SearchQuiz/SearchQuiz.jsx';
 import {Navigate} from 'react-router';
 
 const App = () => {

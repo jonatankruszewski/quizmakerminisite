@@ -1,11 +1,11 @@
 export const restUrls = {
   CATEGORIES: 'https://opentdb.com/api_category.php',
-  FETCH_QUESTIONS: 'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple',
+  FETCH_QUESTIONS: 'https://opentdb.com/api.php',
 };
 
-const fetchQuestionsParams = {
-  amount: 10,
-  category: 11,
-  difficulty: 'medium',
+export const fetchQuestionsParams = {
+  category: undefined,
+  difficulty: undefined,
+  amount: 5,
   type: 'multiple',
 };

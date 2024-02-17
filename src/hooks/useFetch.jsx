@@ -9,6 +9,10 @@ const useFetch = (url, axiosOptions = {}, minTime = 500) => {
   const [error, setError] = useNamedState(null, 'error');
 
   useEffect(() => {
+    if (_.isEmpty(url) || !_.isString(url)) {
+      return;
+    }
+
     const abortController = new AbortController();
     const signal = abortController.signal;
 
@@ -25,9 +29,7 @@ const useFetch = (url, axiosOptions = {}, minTime = 500) => {
               if (!isMounted) {
                 return;
               }
-
               setData(res.data);
-              setIsLoading(false);
               setError(null);
             })
             .catch(err => {
@@ -35,8 +37,10 @@ const useFetch = (url, axiosOptions = {}, minTime = 500) => {
                 return;
               }
               setError(err?.message || 'Error fetching data');
-              setIsLoading(false);
               setData(null);
+            })
+            .finally(() => {
+              setIsLoading(false);
             }),
         );
       }, minTime);
@@ -50,7 +54,7 @@ const useFetch = (url, axiosOptions = {}, minTime = 500) => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [url]);
 
   return {data, isLoading, error};
 };
