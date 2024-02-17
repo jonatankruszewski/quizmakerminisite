@@ -1,8 +1,7 @@
-# React + Vite
+# React + Vite Quiz Maker Mini Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project has been created as a mini project for the React Certification Level 2 of [React Certifications](http://www.react-certification.com/)
 
-Currently, two official plugins are available:
+## Deployed website
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+https://jonatankruszewski.github.io/quizmakerminisite/

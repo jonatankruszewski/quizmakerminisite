@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import useNamedState from "./hooks/useNamedState.jsx";
+import useFetch from "./hooks/useFetch.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useNamedState(0, 'count');
+  const {isLoading, data, error} = useFetch('https://opentdb.com/api_category.php');
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>    </>)
 }
 
 export default App
