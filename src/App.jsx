@@ -12,8 +12,8 @@ const App = () => {
       {/* </Route>*/}
       <Route path='/quizmakerminisite/'>
         <Route index element={<SearchQuiz/>}/>
-        <Route path="*" element={<Navigate to="/quizmakerminisite/" replace/>}/>
       </Route>
+      <Route path="*" element={<Navigate to="/quizmakerminisite/" replace/>}/>
     </Routes>
   );
 };
