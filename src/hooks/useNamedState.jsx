@@ -1,4 +1,4 @@
-import {useDebugValue, useState} from "react";
+import {useDebugValue, useState} from 'react';
 
 const useNamedState = (initialState, label) => {
   const [state, setState] = useState(initialState);
@@ -6,4 +6,4 @@ const useNamedState = (initialState, label) => {
   return [state, setState];
 };
 
-export default import.meta.env.PROD ? useState : useNamedState
+export default import.meta.env.PROD ? useState : useNamedState;
