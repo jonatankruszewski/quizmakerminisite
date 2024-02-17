@@ -16,31 +16,31 @@ const useFetch = (url, axiosOptions = {}, minTime = 500) => {
     let awaitedResponse;
 
     setIsLoading(true);
-    axios.get(url, {signal, timeout: 5000, ...axiosOptions})
-      .then(res => {
-        if (!isMounted) {
-          return
-        }
 
-        _.delay(() => {
-          setData(res.data);
-          setIsLoading(false);
-          setError(null);
-        }, minTime)
+    new Promise((resolve) => {
+      _.delay(() => {
+        resolve(
+          axios.get(url, {signal, timeout: 5000, ...axiosOptions})
+            .then(res => {
+              if (!isMounted) {
+                return
+              }
 
-      })
-      .catch(err => {
-        if (!isMounted) {
-          return
-        }
-
-        _.delay(() => {
-          setError(err?.message || 'Error fetching data');
-          setIsLoading(false);
-          setData(null)
-        }, minTime)
-      })
-
+              setData(res.data);
+              setIsLoading(false);
+              setError(null);
+            })
+            .catch(err => {
+              if (!isMounted) {
+                return
+              }
+              setError(err?.message || 'Error fetching data');
+              setIsLoading(false);
+              setData(null)
+            })
+        )
+      }, minTime)
+    })
 
     return () => {
       abortController.abort();
@@ -48,7 +48,7 @@ const useFetch = (url, axiosOptions = {}, minTime = 500) => {
       if (awaitedResponse) {
         clearTimeout(awaitedResponse);
       }
-    };
+    }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
