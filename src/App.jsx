@@ -49,10 +49,10 @@ const App = () => {
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <InputLabel id="category-select-id">Category</InputLabel>
               {data && <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="category-select-id"
+                id="categorySelect"
                 value={categoryId}
                 label="Category"
                 onChange={handleCategory}
@@ -68,10 +68,10 @@ const App = () => {
           </Grid>
           <Grid item xs={4}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
+              <InputLabel id="difficulty-label-id">Difficulty</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="difficulty-label-id"
+                id="difficultySelect"
                 value={difficulty}
                 label="Difficulty"
                 onChange={handleDifficulty}
@@ -86,7 +86,7 @@ const App = () => {
             </FormControl>
           </Grid>
           <Grid item>
-            <Button disabled={!data} variant="outlined">
+            <Button disabled={!data} variant="outlined" id='createBtn'>
               Create
             </Button>
           </Grid>
