@@ -1,4 +1,4 @@
-export const restUrls = {
+export const RESTUrls = {
   CATEGORIES: 'https://opentdb.com/api_category.php',
   FETCH_QUESTIONS: 'https://opentdb.com/api.php',
 };

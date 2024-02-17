@@ -1,13 +1,13 @@
 import useFetch from '../../hooks/useFetch.jsx';
-import {fetchQuestionsParams, restUrls} from '../../constants/RESTurls.js';
+import {fetchQuestionsParams, RESTUrls} from '../../constants/RESTUrls.js';
 import useNamedState from '../../hooks/useNamedState.jsx';
 import {useContext, useEffect} from 'react';
-import {QuestionsContext} from '../../context/questionsContext.jsx';
+import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 import _ from 'lodash';
 import {difficulties} from '../../constants/Difficulties.js';
 
 const useSearchQuiz = () => {
-  const {isLoading, data, error} = useFetch(restUrls.CATEGORIES);
+  const {isLoading, data, error} = useFetch(RESTUrls.CATEGORIES);
   const [categoryId, setCategoryId] = useNamedState('', 'category');
   const [difficulty, setDifficulty] = useNamedState('', 'difficulty');
   const {setQuery, setTriggerId} = useContext(QuestionsContext);
@@ -40,7 +40,7 @@ const useSearchQuiz = () => {
       params.set('difficulty', difficulty);
     }
 
-    const queryString = `${restUrls.FETCH_QUESTIONS}?${params.toString()}`;
+    const queryString = `${RESTUrls.FETCH_QUESTIONS}?${params.toString()}`;
     setQuery(queryString);
     setTriggerId(_.uniqueId());
   };

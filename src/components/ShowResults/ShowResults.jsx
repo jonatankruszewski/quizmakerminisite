@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {QuestionsContext} from '../../context/questionsContext.jsx';
+import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import _ from 'lodash';
 
