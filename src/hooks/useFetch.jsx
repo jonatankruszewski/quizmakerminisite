@@ -1,8 +1,9 @@
 import {useEffect} from "react";
 import useNamedState from "./useNamedState.jsx";
 import axios from "axios";
+import _ from "lodash";
 
-const useFetch = (url, axiosOptions = {}) => {
+const useFetch = (url, axiosOptions = {}, minTime = 500) => {
   const [isLoading, setIsLoading] = useNamedState(false, 'isLoading');
   const [data, setData] = useNamedState(null, 'data');
   const [error, setError] = useNamedState(null, 'error');
@@ -12,31 +13,44 @@ const useFetch = (url, axiosOptions = {}) => {
     const signal = abortController.signal;
 
     let isMounted = true;
+    let awaitedResponse;
 
+    setIsLoading(true);
     axios.get(url, {signal, timeout: 5000, ...axiosOptions})
       .then(res => {
         if (!isMounted) {
           return
         }
-        setData(res.data);
-        setIsLoading(true);
+
+        _.delay(() => {
+          setData(res.data);
+          setIsLoading(false);
+          setError(null);
+        }, minTime)
+
       })
       .catch(err => {
         if (!isMounted) {
           return
         }
-        setError(err?.message || 'Error fetching data');
+
+        _.delay(() => {
+          setError(err?.message || 'Error fetching data');
+          setIsLoading(false);
+          setData(null)
+        }, minTime)
       })
-      .finally(() => {
-        setIsLoading(false);
-      })
+
 
     return () => {
       abortController.abort();
       isMounted = false;
+      if (awaitedResponse) {
+        clearTimeout(awaitedResponse);
+      }
     };
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setData, setError, setIsLoading])
+  }, [])
 
   return {data, isLoading, error}
 }

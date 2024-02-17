@@ -1,6 +1,8 @@
 .root {
-  //background-color: red;
-  border: 1px solid red;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  border: 2px solid black;
 }
