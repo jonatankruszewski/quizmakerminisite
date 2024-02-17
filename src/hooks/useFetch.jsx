@@ -3,7 +3,7 @@ import useNamedState from './useNamedState.jsx';
 import axios from 'axios';
 import _ from 'lodash';
 
-const useFetch = (url, axiosOptions = {}, minTime = 500) => {
+const useFetch = (url, axiosOptions = {}, minTime = 500, deps = []) => {
   const [isLoading, setIsLoading] = useNamedState(false, 'isLoading');
   const [data, setData] = useNamedState(null, 'data');
   const [error, setError] = useNamedState(null, 'error');
@@ -54,7 +54,7 @@ const useFetch = (url, axiosOptions = {}, minTime = 500) => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, [url, ...deps]);
 
   return {data, isLoading, error};
 };

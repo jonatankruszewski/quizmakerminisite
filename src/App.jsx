@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import SearchQuiz from './components/SearchQuiz/SearchQuiz.jsx';
 import {Navigate} from 'react-router';
+import Home from './pages/Home/Home.jsx';
 
 const App = () => {
 
@@ -11,7 +11,7 @@ const App = () => {
       {/*  <Redirect/>*/}
       {/* </Route>*/}
       <Route path='/quizmakerminisite/'>
-        <Route index element={<SearchQuiz/>}/>
+        <Route index element={<Home/>}/>
       </Route>
       <Route path="*" element={<Navigate to="/quizmakerminisite/" replace/>}/>
     </Routes>

@@ -16,13 +16,14 @@ export const QuestionsContext = createContext(initialValues);
 
 const QuestionsProvider = ({children}) => {
   const [query, setQuery] = useNamedState('', 'query');
-  const {data, isLoading, isError} = useFetch(query);
+  const [triggerID, setTriggerId] = useNamedState('', 'triggerID');
+  const {data, isLoading, error} = useFetch(`${query}`, {}, 500, [triggerID]);
   const questions = _.get(data, 'results', []);
 
   console.log('questions', questions);
-  
+
   return (
-    <QuestionsContext.Provider value={{query, setQuery, questions, isLoading, isError}}>
+    <QuestionsContext.Provider value={{query, setQuery, questions, isLoading, error, setTriggerId}}>
       {children}
     </QuestionsContext.Provider>
   );

@@ -10,7 +10,7 @@ const useSearchQuiz = () => {
   const {isLoading, data, error} = useFetch(restUrls.CATEGORIES);
   const [categoryId, setCategoryId] = useNamedState('', 'category');
   const [difficulty, setDifficulty] = useNamedState('', 'difficulty');
-  const {setQuery} = useContext(QuestionsContext);
+  const {setQuery, setTriggerId} = useContext(QuestionsContext);
 
   useEffect(() => {
     if (!data) return;
@@ -20,10 +20,12 @@ const useSearchQuiz = () => {
   }, [data]);
 
   const handleCategory = event => {
+    setQuery('');
     setCategoryId(event.target.value);
   };
 
   const handleDifficulty = event => {
+    setQuery('');
     setDifficulty(event.target.value);
   };
 
@@ -40,6 +42,7 @@ const useSearchQuiz = () => {
 
     const queryString = `${restUrls.FETCH_QUESTIONS}?${params.toString()}`;
     setQuery(queryString);
+    setTriggerId(_.uniqueId());
   };
 
 
