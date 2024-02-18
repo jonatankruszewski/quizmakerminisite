@@ -1,22 +1,24 @@
 import React, {useContext} from 'react';
-import {Button, Grid, Typography} from '@mui/material';
+import {Alert, Button, Grid} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
 import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 
-const ScoreAlert = ({score}) => {
-  const {amountOfRightAnswers, totalQuestions, hasSubmitted, setHasSubmitted, setQuery, setTriggerId } = useContext(QuestionsContext);
+const ScoreAlert = () => {
+  const {
+    amountOfRightAnswers, totalQuestions, hasSubmitted, setHasSubmitted, setQuery, setTriggerId,
+  } = useContext(QuestionsContext);
   const navigate = useNavigate();
 
   const getColor = () => {
     if (amountOfRightAnswers <= 1) {
-      return 'red';
+      return 'error';
     }
 
     if (amountOfRightAnswers <= 3) {
-      return 'yellow';
+      return 'warning';
     }
 
-    return 'green';
+    return 'success';
   };
 
   if (!hasSubmitted) {
@@ -24,18 +26,19 @@ const ScoreAlert = ({score}) => {
   }
 
   return (
-    <Grid container marginTop={2}>
-      <Grid item xs={12}>
-        <Typography
-          paragraph
-          variant='h6'
-          sx={{backgroundColor: getColor(), border: '1px solid black', padding: '12px', borderRadius: '4px'}}
+    <Grid container spacing={2} >
+      <Grid item xs={12} md={12}>
+        <Alert
+          severity={getColor()}
+          width='100%'
         >
           You scored {amountOfRightAnswers} out of {totalQuestions}
-        </Typography>
+        </Alert>
       </Grid>
-      <Grid item xs={12} alignItems='center'>
+      <Grid container item xs={12} alignItems='center' justifyContent='center' sm={12} md={4} lg={3} xl={2}>
         <Button
+          fullWidth
+          align='center'
           onClick={() => {
             setHasSubmitted(false);
             setTriggerId('');
