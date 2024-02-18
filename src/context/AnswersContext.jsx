@@ -1,5 +1,6 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import _ from 'lodash';
+import {QuestionsContext} from './QuestionsContext.jsx';
 
 const initialValues = {
   query: '',
@@ -11,7 +12,8 @@ const initialValues = {
 
 export const AnswersContext = createContext(initialValues);
 
-const AnswersProvider = ({children, questionsMap}) => {
+const AnswersProvider = ({children}) => {
+  const {questionsMap} = useContext(QuestionsContext);
   const totalQuestions = _.size(questionsMap);
   const [answersMap, setAnswersMap] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);

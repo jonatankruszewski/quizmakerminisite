@@ -5,14 +5,12 @@ import {useContext, useEffect} from 'react';
 import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 import _ from 'lodash';
 import {difficulties} from '../../constants/Difficulties.js';
-import {AnswersContext} from '../../context/AnswersContext.jsx';
 
 const useSearchQuiz = () => {
   const {isLoading, data, error} = useFetch(RESTUrls.CATEGORIES);
   const [categoryId, setCategoryId] = useNamedState('', 'category');
   const [difficulty, setDifficulty] = useNamedState('', 'difficulty');
   const {setQuery, setTriggerId} = useContext(QuestionsContext);
-  const {setAnswersMap, setHasSubmitted} = useContext(AnswersContext);
 
   useEffect(() => {
     if (!data) return;
@@ -32,8 +30,6 @@ const useSearchQuiz = () => {
   };
 
   const onSubmit = () => {
-    setAnswersMap({});
-    setHasSubmitted(false);
 
     const params = new URLSearchParams(fetchQuestionsParams);
 

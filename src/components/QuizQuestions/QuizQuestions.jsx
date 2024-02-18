@@ -5,7 +5,7 @@ import _ from 'lodash';
 import {Alert, CircularProgress} from '@mui/material';
 import Box from '@mui/material/Box';
 
-const QuizQuestions = () => {
+const QuizQuestions = ({buttonRef}) => {
   const {questions, isLoading, error, questionsMap} = useContext(QuestionsContext);
 
   if (isLoading) {
@@ -40,6 +40,7 @@ const QuizQuestions = () => {
             options={randomizedOptions}
             id={id}
             key={id}
+            buttonRef={buttonRef}
           />
         );
       })}

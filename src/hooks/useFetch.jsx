@@ -10,6 +10,9 @@ const useFetch = (url, axiosOptions = {}, minTime = 500, deps = []) => {
 
   useEffect(() => {
     if (_.isEmpty(url) || !_.isString(url)) {
+      setIsLoading(false);
+      setError(null);
+      setData(null);
       return;
     }
 
