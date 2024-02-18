@@ -1,12 +1,10 @@
 import React, {useContext} from 'react';
-import {AnswersContext} from '../../context/AnswersContext.jsx';
 import {Button, Grid, Typography} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
 import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 
 const ScoreAlert = ({score}) => {
-  const {amountOfRightAnswers, totalQuestions, hasSubmitted, setHasSubmitted} = useContext(AnswersContext);
-  const {setQuery, setTriggerId } = useContext(QuestionsContext);
+  const {amountOfRightAnswers, totalQuestions, hasSubmitted, setHasSubmitted, setQuery, setTriggerId } = useContext(QuestionsContext);
   const navigate = useNavigate();
 
   const getColor = () => {

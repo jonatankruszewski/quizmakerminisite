@@ -1,12 +1,13 @@
 import React, {useContext} from 'react';
-import {AnswersContext} from '../../context/AnswersContext.jsx';
+
 import {Button} from '@mui/material';
 import Box from '@mui/material/Box';
 import {useNavigate} from 'react-router-dom';
+import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 
 // eslint-disable-next-line react/display-name
 const SubmitAnswersButton = React.forwardRef((props, ref) => {
-  const {hasAnsweredAll, hasSubmitted, setHasSubmitted} = useContext(AnswersContext);
+  const {hasAnsweredAll, hasSubmitted, setHasSubmitted} = useContext(QuestionsContext);
   const navigate = useNavigate();
 
   const handleClick = () => {

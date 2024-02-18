@@ -30,14 +30,17 @@ const QuizQuestions = ({buttonRef}) => {
     return null;
   }
 
+  if(_.isEmpty(questionsMap)) {
+    return null;
+  }
+
   return (
     <>
-      {_.map(questionsMap, ({question, incorrect_answers, correct_answer, id}) => {
-        const randomizedOptions = _.shuffle([...incorrect_answers, correct_answer]);
+      {_.map(questionsMap, ({question, randomizedAnswers, id}) => {
         return (
           <QuestionComponent
             question={question}
-            options={randomizedOptions}
+            options={randomizedAnswers}
             id={id}
             key={id}
             buttonRef={buttonRef}

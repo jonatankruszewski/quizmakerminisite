@@ -4,15 +4,12 @@ import App from './App.jsx';
 import './index.css';
 import {BrowserRouter} from 'react-router-dom';
 import QuestionsProvider from './context/QuestionsContext.jsx';
-import AnswersProvider from './context/AnswersContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <QuestionsProvider>
-        <AnswersProvider>
-          <App/>
-        </AnswersProvider>
+        <App/>
       </QuestionsProvider>
     </BrowserRouter>
   </React.StrictMode>,

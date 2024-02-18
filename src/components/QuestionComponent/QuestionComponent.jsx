@@ -4,11 +4,11 @@ import he from 'he';
 import {ToggleButton, ToggleButtonGroup, Typography} from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import {AnswersContext} from '../../context/AnswersContext.jsx';
+import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 
 const QuestionComponent = ({question, options, id, buttonRef}) => {
   const [selected, setSelected] = useState(null);
-  const {answersMap, setAnswersMap, hasSubmitted, hasAnsweredAll} = useContext(AnswersContext);
+  const {answersMap, hasSubmitted, hasAnsweredAll, updateSelectedAnswer} = useContext(QuestionsContext);
 
   useEffect(() => {
 
@@ -19,7 +19,6 @@ const QuestionComponent = ({question, options, id, buttonRef}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasAnsweredAll]);
 
-  console.log('buttonRef', buttonRef);
   const getButtonColor = option => {
     if (!hasSubmitted) {
       return 'primary';
@@ -38,10 +37,8 @@ const QuestionComponent = ({question, options, id, buttonRef}) => {
     if (hasSubmitted) {
       return;
     }
-
-
     setSelected(event.target.value);
-    setAnswersMap({...answersMap, [id]: {selectedValue: event.target.value}});
+    updateSelectedAnswer(id, event.target.value);
   };
 
   return (
