@@ -4,7 +4,6 @@ import he from 'he';
 import {ToggleButton, ToggleButtonGroup, Typography} from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import {v4 as uuid} from 'uuid';
 import {AnswersContext} from '../../context/AnswersContext.jsx';
 
 const QuestionComponent = ({question, options, id}) => {
@@ -37,7 +36,7 @@ const QuestionComponent = ({question, options, id}) => {
       <Typography variant='h6' paragraph>{he.decode(question)}</Typography>
       <Grid container spacing={2}>
         {_.map(options, (option, index) => (
-          <Grid item xs={12} sm={6} md={3} lg={3} key={uuid()}>
+          <Grid item xs={12} sm={6} md={3} lg={3} key={option}>
             <ToggleButtonGroup fullWidth size='large'>
               <ToggleButton
                 value={option}

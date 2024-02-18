@@ -14,6 +14,10 @@ const SubmitAnswersButton = () => {
     return null;
   }
 
+  if (hasSubmitted) {
+    return null;
+  }
+
   return (
     <Box display='flex' alignItems='center' justifyContent='center' marginTop={2}>
       <Button
