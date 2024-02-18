@@ -8,50 +8,57 @@ import Box from '@mui/material/Box';
 import {v4 as uuid} from 'uuid';
 import {AnswersContext} from '../../context/AnswersContext.jsx';
 
-const Buttons = ({options, handleClick, selected}) => {
-
-  return _.map(options, (option, index) => (
-    <Grid item xs={12} sm={6} md={3} lg={3} key={uuid()}>
-      <ToggleButton
-        value={option}
-        onClick={handleClick}
-        selected={option === selected}
-        color='primary'
-        size="medium"
-      >
-        {he.decode(option)}
-      </ToggleButton>
-    </Grid>
-  ));
-};
-
 const QuestionComponent = ({question, options, id}) => {
   const [selected, setSelected] = useState(null);
-  const {answersMap, setAnswersMap} = useContext(AnswersContext);
+  const {answersMap, setAnswersMap, hasSubmitted} = useContext(AnswersContext);
+  const getButtonColor = option => {
+    if (!hasSubmitted) {
+      return 'primary';
+    }
+
+    const isCorrect = _.get(answersMap, [id, 'isCorrect']);
+
+    if (isCorrect) {
+      return 'success';
+    }
+
+    return 'error';
+  };
 
   const handleClick = event => {
+    if (hasSubmitted) {
+      return;
+    }
     setSelected(event.target.value);
-    setAnswersMap({...answersMap, [id]: event.target.value});
+    setAnswersMap({...answersMap, [id]: {selectedValue: event.target.value}});
   };
 
   return (
     <Box marginTop={5}>
       <Typography variant='h6' paragraph>{he.decode(question)}</Typography>
-      <Box padding={1}>
-        <ToggleButtonGroup fullWidth size='large'>
-          <Grid container spacing={1}>
-            <Buttons handleClick={handleClick} selected={selected} options={options}/>
+      <Grid container spacing={2}>
+        {_.map(options, (option, index) => (
+          <Grid item xs={12} sm={6} md={3} lg={3} key={uuid()}>
+            <ToggleButtonGroup fullWidth size='large'>
+              <ToggleButton
+                value={option}
+                onClick={handleClick}
+                selected={option === selected}
+                color={getButtonColor(option)}
+                size="medium"
+                disabled={hasSubmitted}
+              >
+                {he.decode(option)}
+              </ToggleButton>
+            </ToggleButtonGroup>
           </Grid>
-        </ToggleButtonGroup>
-      </Box>
+        ))}
+      </Grid>
     </Box>
   );
 };
 
-const useQuiz = questionsMap => {
-
-};
-const ShowResults = () => {
+const QuizQuestions = () => {
   const {questions, isLoading, error, questionsMap} = useContext(QuestionsContext);
 
   if (isLoading) {
@@ -93,4 +100,4 @@ const ShowResults = () => {
   );
 };
 
-export default ShowResults;
+export default QuizQuestions;

@@ -12,7 +12,7 @@ const useSearchQuiz = () => {
   const [categoryId, setCategoryId] = useNamedState('', 'category');
   const [difficulty, setDifficulty] = useNamedState('', 'difficulty');
   const {setQuery, setTriggerId} = useContext(QuestionsContext);
-  const {setAnswersMap} = useContext(AnswersContext);
+  const {setAnswersMap, setHasSubmitted} = useContext(AnswersContext);
 
   useEffect(() => {
     if (!data) return;
@@ -32,6 +32,9 @@ const useSearchQuiz = () => {
   };
 
   const onSubmit = () => {
+    setAnswersMap({});
+    setHasSubmitted(false);
+
     const params = new URLSearchParams(fetchQuestionsParams);
 
     if (categoryId) {
@@ -44,7 +47,7 @@ const useSearchQuiz = () => {
 
     const queryString = `${RESTUrls.FETCH_QUESTIONS}?${params.toString()}`;
     setQuery(queryString);
-    setAnswersMap({});
+
     setTriggerId(_.uniqueId());
   };
 

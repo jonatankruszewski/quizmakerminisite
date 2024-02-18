@@ -1,16 +1,23 @@
 import React, {useContext} from 'react';
 import {AnswersContext} from '../../context/AnswersContext.jsx';
 import {Button} from '@mui/material';
+import Box from '@mui/material/Box';
 
 const SubmitAnswersButton = () => {
-  const {hasAnsweredAll, answersMap } = useContext(AnswersContext);
+  const {hasAnsweredAll, hasSubmitted, setHasSubmitted} = useContext(AnswersContext);
+
+  const handleClick = () => {
+    setHasSubmitted(true);
+  };
 
   if (!hasAnsweredAll) {
     return null;
   }
 
   return (
-    <Button type="submit">Submit Answers</Button>
+    <Box display='flex' alignItems='center' justifyContent='center' marginTop={2}>
+      <Button onClick={handleClick} disabled={hasSubmitted} variant={'contained'} size='large' color={'primary'}>Submit Answers</Button>
+    </Box>
   );
 };
 

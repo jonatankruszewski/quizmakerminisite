@@ -1,4 +1,4 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import _ from 'lodash';
 
 const initialValues = {
@@ -12,13 +12,48 @@ const initialValues = {
 export const AnswersContext = createContext(initialValues);
 
 const AnswersProvider = ({children, questionsMap}) => {
-  const totalAnswers = _.size(questionsMap);
+  const totalQuestions = _.size(questionsMap);
   const [answersMap, setAnswersMap] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const hasAnsweredAll = !_.isEmpty(questionsMap) && _.size(answersMap) === totalAnswers;
+  const hasAnsweredAll = !_.isEmpty(questionsMap) && _.size(answersMap) === totalQuestions;
+
+  const amountOfRightAnswers = _.chain(answersMap)
+    .mapValues(
+      ({selectedValue}, key) => {
+        return {isCorrect: questionsMap[key].correct_answer === selectedValue, selectedValue};
+      })
+    .filter(element => element.isCorrect === true)
+    .size().value();
+
+  useEffect(() => {
+    if (hasSubmitted) {
+      const calculatedAnswers = _.chain(answersMap)
+        .mapValues(
+          ({selectedValue}, key) => {
+            return {isCorrect: questionsMap[key].correct_answer === selectedValue, selectedValue};
+          })
+        .value();
+      setAnswersMap(calculatedAnswers);
+    }
+
+    if (!hasSubmitted) {
+      setAnswersMap({});
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasSubmitted]);
+
 
   return (
-    <AnswersContext.Provider value={{totalAnswers, answersMap, setAnswersMap, hasSubmitted, hasAnsweredAll}}>
+    <AnswersContext.Provider value={{
+      totalQuestions,
+      setHasSubmitted,
+      answersMap,
+      setAnswersMap,
+      hasSubmitted,
+      hasAnsweredAll,
+      amountOfRightAnswers,
+    }}>
       {children}
     </AnswersContext.Provider>
   );
