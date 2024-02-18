@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import _ from 'lodash';
 import he from 'he';
 import {ToggleButton, ToggleButtonGroup, Typography} from '@mui/material';
@@ -7,8 +7,7 @@ import Box from '@mui/material/Box';
 import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 
 const QuestionComponent = ({question, options, id, buttonRef}) => {
-  const [selected, setSelected] = useState(null);
-  const {answersMap, hasSubmitted, hasAnsweredAll, updateSelectedAnswer} = useContext(QuestionsContext);
+  const {questionsMap, hasSubmitted, hasAnsweredAll, updateSelectedAnswer} = useContext(QuestionsContext);
 
   useEffect(() => {
 
@@ -24,8 +23,7 @@ const QuestionComponent = ({question, options, id, buttonRef}) => {
       return 'primary';
     }
 
-    const isCorrect = _.get(answersMap, [id, 'isCorrect']);
-
+    const isCorrect = _.get(questionsMap, [id, 'correct_answer']) === option;
     if (isCorrect) {
       return 'success';
     }
@@ -37,7 +35,6 @@ const QuestionComponent = ({question, options, id, buttonRef}) => {
     if (hasSubmitted) {
       return;
     }
-    setSelected(event.target.value);
     updateSelectedAnswer(id, event.target.value);
   };
 
@@ -45,13 +42,13 @@ const QuestionComponent = ({question, options, id, buttonRef}) => {
     <Box marginTop={2}>
       <Typography variant='h6' paragraph >{he.decode(question)}</Typography>
       <Grid container spacing={2} marginBottom={5}>
-        {_.map(options, (option, index) => (
+        {_.map(options, option => (
           <Grid item xs={12} sm={6} md={3} lg={3} key={option}>
             <ToggleButtonGroup fullWidth size='large'>
               <ToggleButton
                 value={option}
                 onClick={handleClick}
-                selected={option === selected}
+                selected={option === _.get(questionsMap, [id, 'selectedAnswer'], false)}
                 color={getButtonColor(option)}
                 size="large"
                 disabled={hasSubmitted}
