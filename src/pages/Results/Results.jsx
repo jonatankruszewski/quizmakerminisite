@@ -6,9 +6,7 @@ import ScoreAlert from '../../components/ScoreAlert/ScoreAlert.jsx';
 
 const Results = () => {
   const navigate = useNavigate();
-
   const {hasSubmitted} = useContext(QuestionsContext);
-
 
   useEffect(() => {
     if (!hasSubmitted) {
