@@ -1,8 +1,7 @@
 import React, {useContext, useState} from 'react';
-import {QuestionsContext} from '../../context/QuestionsContext.jsx';
 import _ from 'lodash';
 import he from 'he';
-import {Alert, CircularProgress, ToggleButton, ToggleButtonGroup, Typography} from '@mui/material';
+import {ToggleButton, ToggleButtonGroup, Typography} from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import {v4 as uuid} from 'uuid';
@@ -58,46 +57,4 @@ const QuestionComponent = ({question, options, id}) => {
   );
 };
 
-const QuizQuestions = () => {
-  const {questions, isLoading, error, questionsMap} = useContext(QuestionsContext);
-
-  if (isLoading) {
-    return (
-      <Box display='flex' alignItems='center' justifyContent='center'>
-        <CircularProgress/>
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Box display='flex' alignItems='center' justifyContent='center' flex={1} marginTop={2}>
-        <Alert severity='error' sx={{width: '100%'}}>
-          {error}
-        </Alert>
-      </Box>
-    );
-  }
-
-  if (_.isEmpty(questions)) {
-    return null;
-  }
-
-  return (
-    <>
-      {_.map(questionsMap, ({question, incorrect_answers, correct_answer, id}) => {
-        const randomizedOptions = _.shuffle([...incorrect_answers, correct_answer]);
-        return (
-          <QuestionComponent
-            question={question}
-            options={randomizedOptions}
-            id={id}
-            key={id}
-          />
-        );
-      })}
-    </>
-  );
-};
-
-export default QuizQuestions;
+export default QuestionComponent;

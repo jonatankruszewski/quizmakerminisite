@@ -18,10 +18,6 @@ const AnswersProvider = ({children, questionsMap}) => {
   const hasAnsweredAll = !_.isEmpty(questionsMap) && _.size(answersMap) === totalQuestions;
 
   const amountOfRightAnswers = _.chain(answersMap)
-    .mapValues(
-      ({selectedValue}, key) => {
-        return {isCorrect: questionsMap[key].correct_answer === selectedValue, selectedValue};
-      })
     .filter(element => element.isCorrect === true)
     .size().value();
 

@@ -16,7 +16,15 @@ const SubmitAnswersButton = () => {
 
   return (
     <Box display='flex' alignItems='center' justifyContent='center' marginTop={2}>
-      <Button onClick={handleClick} disabled={hasSubmitted} variant={'contained'} size='large' color={'primary'}>Submit Answers</Button>
+      <Button
+        onClick={handleClick}
+        disabled={hasSubmitted}
+        variant={'contained'}
+        size='large'
+        color={'primary'}
+      >
+        Submit Answers
+      </Button>
     </Box>
   );
 };
