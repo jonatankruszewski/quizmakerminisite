@@ -48,7 +48,7 @@ const ScoreAlert = () => {
           variant={'contained'}
           size='large'
           color={'primary'}>
-          Create New Quiz
+          Create a New Quiz
         </Button>
       </Grid>
     </Grid>
