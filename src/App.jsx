@@ -11,6 +11,7 @@ const App = () => {
       <Route path='/quizmakerminisite/' element={<Layout/>}>
         <Route index element={<Home/>}/>
         <Route path='results' element={<Results/>}/>
+        <Route path="*" element={<Navigate to="/quizmakerminisite/" replace/>}/>
       </Route>
        <Route path="*" element={<Navigate to="/quizmakerminisite/" replace/>}/>
     </Routes>
